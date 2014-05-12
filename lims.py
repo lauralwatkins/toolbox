@@ -18,7 +18,9 @@ def lims( x, f=0., log=False, err=0 ):
       x : data for which limits required
     
     OPTIONS
-      f : extra padding factor [default:0.]
+      f   : extra padding factor [default:0.]
+      log : pad limits on log scale
+      err : errors on x, so limits will include error bars
     """
     
     xmin = ( x - err ).min()
