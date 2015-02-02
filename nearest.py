@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 # -----------------------------------------------------------------------------
-# STATS.NEAREST
+# TOOLBOX.NEAREST
 # Laura L Watkins [lauralwatkins@gmail.com]
 # -----------------------------------------------------------------------------
 
 
-
-def nearest( x, base=1. ):
+def nearest(x, base=1.):
     
     """
     Round the inputs to the nearest base.  Beware, due to the nature of
@@ -19,4 +18,4 @@ def nearest( x, base=1. ):
       base : number to which x should be rounded
     """
     
-    return round( x / base ) * base
+    return round(x/base)*base

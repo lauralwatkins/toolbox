@@ -7,7 +7,7 @@
 from numpy import *
 
 
-def lims( x, f=0., log=False, err=0, pivot=None ):
+def lims(x, f=0., log=False, err=0, pivot=None):
     
     """
     Return the minimum and maximum of a distribution.  There is an option to
