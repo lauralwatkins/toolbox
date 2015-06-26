@@ -9,10 +9,12 @@ import matplotlib.pyplot as plt
 import toolbox
 
 
-def clip2d(xx, yy, sigma, nmax=10, verbose=False, graph=False):
+def clip2d(xx, yy, sigma, nmax=10, verbose=False, graph=False,
+    xtest=None, ytest=None):
     
     """
-    Perform sigma-clipping of a two-dimensional distribution.
+    Perform sigma-clipping of a two-dimensional distribution. Optionally,
+    test whether a given dataset would pass or fail the sigma clipping.
     
     INPUTS:
       xx    : x-coordinates
@@ -23,6 +25,8 @@ def clip2d(xx, yy, sigma, nmax=10, verbose=False, graph=False):
       nmax    : maximum number of iterations [default 10]
       verbose : print out progress [default False]
       graph   : show graph of results [default False]
+      xtest   : x-coordinates of test data [default None]
+      ytest   : y-coordinates of test data [default None]
     """
     
     
@@ -63,6 +67,13 @@ def clip2d(xx, yy, sigma, nmax=10, verbose=False, graph=False):
         print "  points remaining: {:}".format(keep.size)
         print ""
     
+    # check if test data would pass of fail the clipping
+    if np.any(xtest) and np.any(ytest):
+        phi = np.arctan2(ytest-py[0],xtest-px[0])
+        rell = a*b / np.sqrt( (a*np.sin(phi))**2 + (b*np.cos(phi))**2 )
+        r = np.sqrt( (xtest-px[0])**2 + (ytest-py[0])**2 )
+        testpass = np.array([r<rell])
+    
     if graph:
         
         # set up plotting
@@ -83,4 +94,7 @@ def clip2d(xx, yy, sigma, nmax=10, verbose=False, graph=False):
         plt.scatter(xx[fail], yy[fail], lw=0, c="r", s=5)
         plt.show()
     
-    return keep, fail
+    if np.any(xtest) and np.any(ytest):
+        return keep, fail, testpass
+    else:
+        return keep, fail
