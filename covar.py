@@ -1,21 +1,21 @@
 #!/usr/bin/env python
 # -----------------------------------------------------------------------------
-# COVAR
-#   
-#   Program calculates the covariance matrix for a given parameter set.
-#   
-#   INPUTS
-#     x : MxN array of points ( M = # parameters, N = # samples )
-#   
-#   HISTORY
-#     v1.0 : Laura L Watkins [lauralwatkins@gmail.com] - MPIA, 2012/06/07
+# TOOLBOX.COVAR
+# Laura L Watkins [lauralwatkins@gmail.com]
 # -----------------------------------------------------------------------------
 
-from numpy import array
+import numpy as np
 
-def covar( x ):
+
+def covar(x):
     
-    cov = array( [ [ ( i * j ).mean() - i.mean() * j.mean()
-        for j in x ] for i in x ] )
+    """
+    Program calculates the covariance matrix for a given parameter set.
+    
+    INPUTS
+      x : MxN array of points (M = # parameters, N = # samples)
+    """
+    
+    cov = np.array([[ (i*j).mean()-i.mean()*j.mean() for j in x] for i in x])
     
     return cov
