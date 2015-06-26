@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 # -----------------------------------------------------------------------------
-# STATS.MINMAX
+# TOOLBOX.MINMAX
 # Laura L Watkins [lauralwatkins@gmail.com]
 # -----------------------------------------------------------------------------
 
-from numpy import array
+import numpy as np
 
 
-def minmax( x ):
+def minmax(x):
     
     """
-    Return the minimum and maximum value of an array simultaenously.
+    Return the minimum and maximum value of an array simultaneously.
     
     INPUTS
       x : input value of array
     """
     
-    return array([ x.min(), x.max() ])
+    return np.array([ x.min(), x.max() ])

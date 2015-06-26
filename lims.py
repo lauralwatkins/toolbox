@@ -4,16 +4,16 @@
 # Laura L Watkins [lauralwatkins@gmail.com]
 # -----------------------------------------------------------------------------
 
-from numpy import *
+import numpy as np
 
 
 def lims(x, f=0., log=False, err=0, pivot=None):
     
     """
-    Return the minimum and maximum of a distribution.  There is an option to
+    Return the minimum and maximum of a distribution. There is an option to
     pad the limits by an additional factor f, this is especially useful when
-    calculating limits for a plot.  If f is given with two elements, then the
-    upper and lower padding will be different.  The program ignores nan values.
+    calculating limits for a plot. If f is given with two elements, then the
+    upper and lower padding will be different. The program ignores nan values.
     
     INPUTS
       x : data for which limits required
@@ -29,19 +29,19 @@ def lims(x, f=0., log=False, err=0, pivot=None):
     
     
     # check if plus/minus errors are different
-    if shape(err) == (2,) + shape(x):
+    if np.shape(err) == (2,) + np.shape(x):
         perr = err[0]
         merr = err[1]
     else:
         perr = err
         merr = err
     
-    xmin = nanmin(x-merr)
-    xmax = nanmax(x+perr)
+    xmin = np.nanmin(x-merr)
+    xmax = np.nanmax(x+perr)
     
     if log:
-        xmin = log10(xmin)
-        xmax = log10(xmax)
+        xmin = np.log10(xmin)
+        xmax = np.log10(xmax)
     
     if pivot != None:
         offset = max(pivot-xmin, xmax-pivot)
@@ -49,8 +49,8 @@ def lims(x, f=0., log=False, err=0, pivot=None):
         xmax = pivot+offset
     
     xptp = xmax - xmin
-    if size(f) == 1: f = [f]
-    lims = array([ xmin - xptp * f[0], xmax + xptp * f[-1] ])
+    if np.size(f)==1: f = [f]
+    lims = np.array([ xmin-xptp*f[0], xmax+xptp*f[-1] ])
     
     if log: lims = 10**lims
     
