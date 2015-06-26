@@ -4,8 +4,8 @@
 # Laura L Watkins [lauralwatkins@gmail.com]
 # -----------------------------------------------------------------------------
 
-from numpy import *
-from matplotlib.pyplot import *
+import numpy as np
+import matplotlib.pyplot as plt
 import toolbox
 
 
@@ -26,11 +26,10 @@ def clip2d(xx, yy, sigma, nmax=10, verbose=False, graph=False):
     """
     
     
-    if verbose:
-        print "\nsigma clip at {:} sigma".format(sigma)
+    if verbose: print "\nsigma clip at {:} sigma".format(sigma)
     
-    keep = array([ int(n) for n in linspace(0,len(xx)-1,len(xx)) ])
-    fail = array([], dtype="int")
+    keep = np.array([ int(n) for n in np.linspace(0,len(xx)-1,len(xx)) ])
+    fail = np.array([], dtype="int")
     
     count = 1
     nremoved = 1
@@ -46,13 +45,13 @@ def clip2d(xx, yy, sigma, nmax=10, verbose=False, graph=False):
         # create elliptical limits from dispersions and clip data
         a = sigma * px[1]
         b = sigma * py[1]
-        phi = arctan2(y-py[0],x-px[0])
-        rell = a*b / sqrt( (a*sin(phi))**2 + (b*cos(phi))**2 )
-        r = sqrt( (x-px[0])**2 + (y-py[0])**2 )
-        fail = append(fail, keep[r>=rell])
+        phi = np.arctan2(y-py[0],x-px[0])
+        rell = a*b / np.sqrt( (a*np.sin(phi))**2 + (b*np.cos(phi))**2 )
+        r = np.sqrt( (x-px[0])**2 + (y-py[0])**2 )
+        fail = np.append(fail, keep[r>=rell])
         keep = keep[r<rell]
         
-        nremoved = len(x)-size(keep)
+        nremoved = len(x)-np.size(keep)
         if verbose: print "  {:} ... removed {:}".format(count, nremoved)
         count += 1
     
@@ -67,21 +66,21 @@ def clip2d(xx, yy, sigma, nmax=10, verbose=False, graph=False):
     if graph:
         
         # set up plotting
-        rc('font', family='serif')
-        rc('text', usetex=True)
-        rc('xtick', labelsize='8')
-        rc('ytick', labelsize='8')
-        rc('axes', labelsize='10')
-        rc('legend', fontsize='9')
+        plt.rc('font', family='serif')
+        plt.rc('text', usetex=True)
+        plt.rc('xtick', labelsize='8')
+        plt.rc('ytick', labelsize='8')
+        plt.rc('axes', labelsize='10')
+        plt.rc('legend', fontsize='9')
         
-        fig = figure(figsize=(4,3))
+        fig = plt.figure(figsize=(4,3))
         fig.subplots_adjust(left=0.13, bottom=0.13, top=0.97, right=0.97)
-        xlim(toolbox.lims(xx))
-        ylim(toolbox.lims(yy))
-        xlabel(r"$\rm x \; coordinate$")
-        ylabel(r"$\rm y \; coordinate$")
-        scatter(xx[keep], yy[keep], lw=0, c="k", s=5)
-        scatter(xx[fail], yy[fail], lw=0, c="r", s=5)
-        show()
+        plt.xlim(toolbox.lims(xx))
+        plt.ylim(toolbox.lims(yy))
+        plt.xlabel(r"$\rm x \; coordinate$")
+        plt.ylabel(r"$\rm y \; coordinate$")
+        plt.scatter(xx[keep], yy[keep], lw=0, c="k", s=5)
+        plt.scatter(xx[fail], yy[fail], lw=0, c="r", s=5)
+        plt.show()
     
     return keep, fail
