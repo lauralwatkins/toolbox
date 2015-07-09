@@ -10,7 +10,7 @@ import toolbox
 
 
 def clip2d(xx, yy, sigma, nmax=10, verbose=False, graph=False,
-    xtest=None, ytest=None):
+    xtest=None, ytest=None, xweights=None, yweights=None):
     
     """
     Perform sigma-clipping of a two-dimensional distribution. Optionally,
@@ -27,6 +27,8 @@ def clip2d(xx, yy, sigma, nmax=10, verbose=False, graph=False,
       graph   : show graph of results [default False]
       xtest   : x-coordinates of test data [default None]
       ytest   : y-coordinates of test data [default None]
+      xweights : weights for x values [default None]
+      yweights : weights for y values [default None]
     """
     
     
@@ -41,10 +43,14 @@ def clip2d(xx, yy, sigma, nmax=10, verbose=False, graph=False,
         
         x = xx[keep]
         y = yy[keep]
+        if np.any(xweights): xw = xweights[keep]
+        else: xw = None
+        if np.any(yweights): yw = yweights[keep]
+        else: yw = None
         
         # estimate dispersions by fitting gaussian
-        px = toolbox.fit_gauss(x)[0]
-        py = toolbox.fit_gauss(y)[0]
+        px = toolbox.fit_gauss(x, weights=xw)[0]
+        py = toolbox.fit_gauss(y, weights=yw)[0]
         
         # create elliptical limits from dispersions and clip data
         a = sigma * px[1]
