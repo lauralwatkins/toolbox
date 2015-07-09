@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from scipy import optimize, stats
 
 
-def fit_gauss(data, bins=100, showplot=False, label=None):
+def fit_gauss(data, bins=100, showplot=False, label=None, weights=None):
     
     """
     Fit a gaussian profile to a given distribution.
@@ -21,10 +21,11 @@ def fit_gauss(data, bins=100, showplot=False, label=None):
       bins : number of bins in histogram [default 100]
       showplot : show plot of histogram and fit? [default False]
       label : label for plot axes. [default None]
+      weights : weights for data values [default None]
     """
     
     # normalised histogram of data
-    yh, lims = np.histogram(data, bins=bins, normed=True)
+    yh, lims = np.histogram(data, bins=bins, normed=True, weights=weights)
     xh = (lims[1:] + lims[:-1])/2.
     
     # fit gaussian to distribution
@@ -48,7 +49,7 @@ def fit_gauss(data, bins=100, showplot=False, label=None):
         
         # plot histogram
         plt.hist(data, bins=bins, histtype="stepfilled", alpha=0.3,
-            color="grey", normed=True)
+            color="grey", normed=True, weights=weights)
         plt.plot(xh, yh, "ko", alpha=0.2)
         
         # array for plotting
