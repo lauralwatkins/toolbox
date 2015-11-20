@@ -27,6 +27,8 @@ def lims(x, f=0., log=False, err=0, pivot=None):
       pivot : make limits symmetric around pivot point (use largest offset)
     """
     
+    try: unit, x = x.unit, x.value
+    except: unit = 1.
     
     # check if plus/minus errors are different
     if np.shape(err) == (2,) + np.shape(x):
@@ -53,5 +55,7 @@ def lims(x, f=0., log=False, err=0, pivot=None):
     lims = np.array([ xmin-xptp*f[0], xmax+xptp*f[-1] ])
     
     if log: lims = 10**lims
+    
+    lims = lims*unit
     
     return lims
