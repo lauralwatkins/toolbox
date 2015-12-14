@@ -29,14 +29,15 @@ def lims(x, f=0., log=False, err=0, pivot=None):
     
     try: unit, x = x.unit, x.value
     except: unit = 1.
+    xerr = err/unit
     
     # check if plus/minus errors are different
-    if np.shape(err) == (2,) + np.shape(x):
-        perr = err[0]
-        merr = err[1]
+    if np.shape(xerr) == (2,) + np.shape(x):
+        perr = xerr[0]
+        merr = xerr[1]
     else:
-        perr = err
-        merr = err
+        perr = xerr
+        merr = xerr
     
     xmin = np.nanmin(x-merr)
     xmax = np.nanmax(x+perr)
