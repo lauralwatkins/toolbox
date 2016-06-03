@@ -14,9 +14,10 @@ def into_pixels(xdata, ydata, nx=None, ny=None, xscale=None, yscale=None,
     """
     Put a 2D dataset into pixels. The code returns two objects:
     1) an astropy QTable for the pixels with the pixel ID number, x-centre, 
-    y-centre, and number of objects;
+       y-centre, and number of objects -- the properties of the pixel grid 
+       are also output in the Qtable metadata;
     2) an array containing the pixel ID number of all input objects -- 
-    objects outside the limits of the pixel grid are given a pixel ID of -1.
+       objects outside the limits of the pixel grid are given a pixel ID of -1.
     
     INPUTS
       xdata : first coordinate of data (refered to as "x")
@@ -160,5 +161,16 @@ def into_pixels(xdata, ydata, nx=None, ny=None, xscale=None, yscale=None,
     
     # number of datapoints in each pixel
     pix[n] = np.histogram(data_pix, range=(-0.5,npix-0.5), bins=npix)[0]
+    
+    # put grid properties into metadata
+    pix.meta = {
+      "nx": nx,
+      "ny": ny,
+      "npix": npix,
+      "xscale": xscale,
+      "yscale": yscale,
+      "xlim": xlim,
+      "ylim": ylim,
+    }
     
     return pix, data_pix
