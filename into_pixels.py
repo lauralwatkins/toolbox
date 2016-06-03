@@ -43,9 +43,10 @@ def into_pixels(xdata, ydata, nx=None, ny=None, xscale=None, yscale=None,
         2) Limits only: the code will fail.
         3) Number of pixels only: the data limits are used for the pixel
            limits. Then the behaviour follows from case 5.
-        4) Scale only: the code calculates the minimum number of pixels 
-           required to cover the space with the given scale. Then the 
-           behaviour follows from case 6.
+        4) Scale only: the data limits are used but with the lower limit
+           rounded down to the nearest scale factor and the upper limit
+           rounded up to the nearest scale factor. Then the behaviour follows 
+           from case 7.
         5) Limits and number of pixels: scale is calculated. Then the 
            behaviour follows from case 8.
         6) Scale and number of pixels: limits are chosen so that the centre 
@@ -79,25 +80,25 @@ def into_pixels(xdata, ydata, nx=None, ny=None, xscale=None, yscale=None,
             +"scale for y-coordinate as well as limits of pixelised region."
         return
     
-    # if given only nx/ny then use data limits for pixel limits
-    if nx and not xscale and not xlim: xlim = (xdata.min(), xdata.max())
-    if ny and not yscale and not ylim: ylim = (ydata.min(), ydata.max())
-    
-    # if only given scales, calculate minimum pixels required to span data
-    if xscale and not nx and not xlim: nx = np.int(np.ceil(xdata.ptp()/xscale))
-    if yscale and not ny and not ylim: ny = np.int(np.ceil(ydata.ptp()/yscale))
+    # calculate limits, if needed
+    if not xlim:
+        if nx and xscale:
+            xmid = xdata.min()+xdata.ptp()/2.
+            xlim = (xmid-nx/2.*xscale, xmid+nx/2.*xscale)
+        elif not xscale: xlim = (xdata.min(), xdata.max())
+        else: xlim = (np.floor(xdata.min()/xscale)*xscale,
+            np.ceil(xdata.max()/xscale)*xscale)
+    if not ylim:
+        if ny and yscale:
+            ymid = ydata.min()+ydata.ptp()/2.
+            ylim = (ymid-ny/2.*yscale, ymid+ny/2.*yscale)
+        elif not yscale: ylim = (ydata.min(), ydata.max())
+        else: ylim = (np.floor(ydata.min()/yscale)*yscale,
+            np.ceil(ydata.max()/yscale)*yscale)
     
     # calculate pixel scale, if needed
     if not xscale: xscale = (xlim[1]-xlim[0])/nx
     if not yscale: yscale = (ylim[1]-ylim[0])/ny
-    
-    # calculate limits, if needed
-    if not xlim:
-        xmid = xdata.min()+xdata.ptp()/2.
-        xlim = (xmid-nx/2.*xscale, xmid+nx/2.*xscale)
-    if not ylim:
-        ymid = ydata.min()+ydata.ptp()/2.
-        ylim = (ymid-ny/2.*yscale, ymid+ny/2.*yscale)
     
     # calculate number of pixels, if needed
     if not nx: nx = int((xlim[1]-xlim[0])/xscale)
