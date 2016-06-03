@@ -151,9 +151,6 @@ def into_pixels(xdata, ydata, nx=None, ny=None, xscale=None, yscale=None,
     yy = np.linspace(ylim[0]/yscale+0.5, ylim[1]/yscale-0.5, ny)*yscale
     pix[x], pix[y] = [p.reshape(npix) for p in np.meshgrid(xx,yy)]
     
-    print xx
-    print yy
-    
     # pixel number for each datapoint
     data_pix = (np.round((xdata-xx.min())/xscale) \
         + np.round((ydata-yy.min())/yscale)*nx).astype(int)
