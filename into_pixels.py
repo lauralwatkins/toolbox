@@ -8,8 +8,8 @@ import numpy as np
 from astropy import table
 
 
-def into_pixels(xdata, ydata, x="x", y="y", nx=None, ny=None, xscale=None,
-    yscale=None, xlim=None, ylim=None, quiet=False):
+def into_pixels(xdata, ydata, nx=None, ny=None, xscale=None, yscale=None,
+    xlim=None, ylim=None, x="x", y="y", id="id", n="N", quiet=False):
     
     """
     Put a 2D dataset into pixels. The code returns two objects:
@@ -23,14 +23,16 @@ def into_pixels(xdata, ydata, x="x", y="y", nx=None, ny=None, xscale=None,
       ydata : second coordinate of data (refered to as "y")
     
     OPTIONS
-      x : name for "x" column of output table [default "x"]
-      y : name for "y" column of output table [default "y"]
       nx : number of pixels in x [default None] (*)
       ny : number of pixels in y [default None] (*)
       xscale : scale of x pixels [default None] (*)
       yscale : scale of y pixels [default None] (*)
       xlim : limits of pixelised area in x [default None] (*)
       ylim : limits of pixelised area in y [default None] (*)
+      x : name for x-coordinate column of output table [default "x"]
+      y : name for y-coordinate column of output table [default "y"]
+      id : name for pixel ID column of output table [default "id"]
+      n : name for number of datapoints column of output table [default "N"]
       quiet : suppress text outputs? [default False]
     
     NOTES
@@ -142,7 +144,7 @@ def into_pixels(xdata, ydata, x="x", y="y", nx=None, ny=None, xscale=None,
     
     # make QTable for pixels
     pix = table.QTable()
-    pix["id"] = range(npix)
+    pix[id] = range(npix)
     
     # pixel centres
     xx = np.linspace(xlim[0]/xscale+0.5, xlim[1]/xscale-0.5, nx)*xscale
@@ -159,6 +161,6 @@ def into_pixels(xdata, ydata, x="x", y="y", nx=None, ny=None, xscale=None,
         = -1
     
     # number of datapoints in each pixel
-    pix["N"] = np.histogram(data_pix, range=(-0.5,npix-0.5), bins=npix)[0]
+    pix[n] = np.histogram(data_pix, range=(-0.5,npix-0.5), bins=npix)[0]
     
     return pix, data_pix
