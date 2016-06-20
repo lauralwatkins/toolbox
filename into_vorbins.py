@@ -48,9 +48,9 @@ def into_vorbins(data_pix, pix, targetSN, x="x", y="y", id="id", n="N",
             return
     
     # settings for Voronoi binning
-    signal = pix[n]
-    noise = np.sqrt(pix[n])
     good = pix[n]>0
+    signal = pix[good][n]
+    noise = np.sqrt(pix[good][n])
     
     # need to have pixels on same scale for Voronoi
     xp = (pix[x] - pix[x].min())/pix.meta["xscale"]
@@ -60,8 +60,8 @@ def into_vorbins(data_pix, pix, targetSN, x="x", y="y", id="id", n="N",
     bin = table.QTable()
     pix["bin"] = -np.ones(len(pix), dtype="int")
     pix["bin"][good], bin[x], bin[y], bin[sn], bin[npix], vscale \
-        = voronoi.bin2d(xp[good], yp[good], signal[good], noise[good],
-        targetSN, graphs=False, quiet=vquiet)
+        = voronoi.bin2d(xp[good], yp[good], signal, noise, targetSN,
+        graphs=False, quiet=vquiet)
     bin["id"] = range(len(bin))
     
     # adjust bins back to real scale
