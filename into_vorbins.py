@@ -76,8 +76,8 @@ def into_vorbins(data_pix, pix, targetSN, x="x", y="y", id="id", n="N",
     bin["id"] = range(len(bin))
     
     # adjust bins back to real scale
-    bin[x] *= pix.meta["xscale"]
-    bin[y] *= pix.meta["yscale"]
+    bin[x] = bin[x]*pix.meta["xscale"] + pix[x].min()
+    bin[y] = bin[y]*pix.meta["yscale"] + pix[y].min()
     try: bin["x"].unit = pix.meta["xscale"].unit
     except: pass
     try: bin["y"].unit = pix.meta["yscale"].unit
