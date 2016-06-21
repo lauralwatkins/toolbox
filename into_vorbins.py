@@ -89,10 +89,6 @@ def into_vorbins(data_pix, pix, targetSN, x="x", y="y", id="id", n="N",
     # number of datapoints in each bin
     bin[n] = np.array([sum(data_bin==i) for i in range(len(bin))])
     
-    # number of datapoints in bin to which pixel belongs
-    pix["Nbin"] = -np.ones(len(pix), dtype="int")
-    pix["Nbin"][good] = bin[pix[good]["bin"]][n]
-    
     # reorder columns
     bin = bin[id,x,y,n,npix,sn]
     
@@ -102,6 +98,16 @@ def into_vorbins(data_pix, pix, targetSN, x="x", y="y", id="id", n="N",
     bin[signal] = [sum(pix_signal[pix[good]["bin"]==b["id"]]) for b in bin]
     bin[noise] = [np.sqrt(sum(pix_noise[pix[good]["bin"]==b["id"]]**2)) \
         for b in bin]
+    
+    # number of datapoints in bin to which pixel belongs
+    pix["Nbin"] = -np.ones(len(pix), dtype="int")
+    pix["Nbin"][good] = bin[pix[good]["bin"]][n]
+    
+    # signal and noise in bin to which pixel belongs
+    pix[signal+"_bin"] = [np.nan]*len(pix)
+    pix[noise+"_bin"] = [np.nan]*len(pix)
+    pix[signal+"_bin"][good] = bin[pix[good]["bin"]][signal]
+    pix[noise+"_bin"][good] = bin[pix[good]["bin"]][noise]
     
     if not quiet:
         print "\nVoronoi binning of pixels\n"
