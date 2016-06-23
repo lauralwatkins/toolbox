@@ -46,6 +46,7 @@ This is a random collection of useful python functions. I primarily wrote them f
 * **lims**: Returns the minimum and maximum of a distribution. There is an option to pad the limits by an additional factor f (on a linear or log scale), to include measurement errors and to pivot about a central values. This code is especially useful for calculating limits for a plot.
 * **minmax**: Returns the minimum and maximum value of an array simultaneously.
 * **nearest**: Rounds the inputs to the nearest base. (Use with caution, due to the nature of floating point arithmetic, this maybe not work as you expect.)
+* **randbn**: Draws numbers randomly from an input distribution in a given range.
 * **whsf**: Returns the position of the first significant figure in a floating point number.
 
 
