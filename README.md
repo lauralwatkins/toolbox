@@ -45,6 +45,7 @@ This is a random collection of useful python functions. I primarily wrote them f
 * **into_vorbins**: Bin pixels into Voronoi bins (basically this is a wrapper for [voronoi.bin2d](https://github.com/lauralwatkins/voronoi) that takes care of tedious housekeeping). This returns both the bins and the bin IDs of each datapoint.
 * **lims**: Returns the minimum and maximum of a distribution. There is an option to pad the limits by an additional factor f (on a linear or log scale), to include measurement errors and to pivot about a central values. This code is especially useful for calculating limits for a plot.
 * **minmax**: Returns the minimum and maximum value of an array simultaneously.
+* **multigauss**: Evaluates multivariate Gaussian distributions, each at different data points. This code is optimised to evaluate M Gaussians of dimension N at M points. (By contrast, the scipy.stats.multivariatenormal function can only evaluate one Gaussian of dimension N at M points in one call, so (slow) for loops are required for >1 Gaussian. This method is much faster for large numbers of Gaussians.)
 * **nearest**: Rounds the inputs to the nearest base. (Use with caution, due to the nature of floating point arithmetic, this maybe not work as you expect.)
 * **randbn**: Draws numbers randomly from an input distribution in a given range.
 * **whsf**: Returns the position of the first significant figure in a floating point number.
