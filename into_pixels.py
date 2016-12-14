@@ -164,13 +164,15 @@ def into_pixels(xdata, ydata, nx=None, ny=None, xscale=None, yscale=None,
     
     # put grid properties into metadata
     pix.meta = {
-      "nx": nx,
-      "ny": ny,
-      "npix": npix,
-      "xscale": xscale,
-      "yscale": yscale,
-      "xlim": xlim,
-      "ylim": ylim,
+        "npix": npix,
+        "nx": nx,
+        "ny": ny,
+        "xlim": np.array([x.value for x in xlim]),
+        "ylim": np.array([y.value for y in ylim]),
+        "xscale": xscale.value,
+        "yscale": yscale.value,
+        "xunit": "{:}".format(xscale.unit),
+        "yunit": "{:}".format(yscale.unit),
     }
     
     return pix, data_pix
