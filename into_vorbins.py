@@ -5,7 +5,7 @@
 # -----------------------------------------------------------------------------
 
 import numpy as np
-from astropy import table
+from astropy import table, units as u
 import voronoi
 
 
@@ -64,8 +64,8 @@ def into_vorbins(data_pix, pix, targetSN, x="x", y="y", id="id", n="N",
     else: pix_noise = pix[good][noise]
     
     # need to have pixels on same scale for Voronoi
-    xp = ((pix[x]-pix[x].min())/pix.meta["xscale"])[good]
-    yp = ((pix[y]-pix[y].min())/pix.meta["yscale"])[good]
+    xp = ((pix[x]-pix[x].min())/pix.meta["xscale"]/u.Unit(pix.meta["xunit"]))[good]
+    yp = ((pix[y]-pix[y].min())/pix.meta["yscale"]/u.Unit(pix.meta["yunit"]))[good]
     
     # do the Voronoi binning
     bin = table.QTable()
@@ -76,11 +76,11 @@ def into_vorbins(data_pix, pix, targetSN, x="x", y="y", id="id", n="N",
     bin["id"] = range(len(bin))
     
     # adjust bins back to real scale
-    bin[x] = bin[x]*pix.meta["xscale"] + pix[x].min()
-    bin[y] = bin[y]*pix.meta["yscale"] + pix[y].min()
-    try: bin["x"].unit = pix.meta["xscale"].unit
+    bin[x] = bin[x]*pix.meta["xscale"]*u.Unit(pix.meta["xunit"]) + pix[x].min()
+    bin[y] = bin[y]*pix.meta["yscale"]*u.Unit(pix.meta["yunit"]) + pix[y].min()
+    try: bin["x"].unit = pix.meta["xunit"]
     except: pass
-    try: bin["y"].unit = pix.meta["yscale"].unit
+    try: bin["y"].unit = pix.meta["yunit"]
     except: pass
     
     # bin number for each datapoint
