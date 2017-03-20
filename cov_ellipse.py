@@ -27,13 +27,15 @@ def cov_ellipse(x, sigma=1., w=None):
     
     # calculate eigenvalues and eigenvectors
     e, v = np.linalg.eig(cov)
+    major = v[:,e==e.max()].T[0]
+    minor = v[:,e==e.min()].T[0]
     
     # rotation angle of the ellipse
-    rot = -np.arctan2(v[1,0], v[0,0])
+    rot = np.arctan2(major[1], major[0])
     
     # semi-major and semi-minor axes
-    a = np.sqrt(e[0])*sigma
-    b = np.sqrt(e[1])*sigma
+    a = np.sqrt(e.max())*sigma
+    b = np.sqrt(e.min())*sigma
     
     # ellipse centre
     if w is None: w = np.ones(x.shape)
