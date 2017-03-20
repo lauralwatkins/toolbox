@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 
-import os
-import string
-
-for f in os.listdir( os.path.dirname( __file__ ) ):
-    name, ext = string.split( f, "." )
-    if ( name != "__init__" and ext == "py" ):
-        tmp = __import__( name, locals(), globals(), [name], -1 )
-        vars()[name] = vars(tmp)[name]
-
-del f, name, ext, os, string
+from .clip2d import clip2d
+from .cov_ellipse import cov_ellipse
+from .covar import covar
+from .ellipse import ellipse
+from .fit_gauss import fit_gauss
+from .fmttime import fmttime
+from .into_pixels import into_pixels
+from .into_vorbins import into_vorbins
+from .lims import lims
+from .minmax import minmax
+from .multigauss import multigauss
+from .nearest import nearest
+from .randbn import randbn
+from .whsf import whsf
