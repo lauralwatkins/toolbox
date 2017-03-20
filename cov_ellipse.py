@@ -9,7 +9,7 @@ from ellipse import ellipse
 from covar import covar
 
 
-def cov_ellipse(x, sigma=1.):
+def cov_ellipse(x, sigma=1., w=None):
     
     """
     Program calculates the x and y coordinates of an ellipse with parameters
@@ -20,9 +20,10 @@ def cov_ellipse(x, sigma=1.):
     
     OPTIONS
       sigma : level of contours (default: 1.)
+      w : weights for covariance calculation (default: None)
     """
     
-    cov = covar(x)
+    cov = covar(x, w=w)
     
     # calculate eigenvalues and eigenvectors
     e, v = np.linalg.eig(cov)
@@ -34,6 +35,12 @@ def cov_ellipse(x, sigma=1.):
     a = np.sqrt(e[0])*sigma
     b = np.sqrt(e[1])*sigma
     
-    x, y = ellipse(a, b, xc=x[0].mean(), yc=x[1].mean(), rot=rot)
+    # ellipse centre
+    if w is None: w = np.ones(x.shape)
+    xc = np.sum(x[0]*w)/np.sum(w)
+    yc = np.sum(x[1]*w)/np.sum(w)
+    
+    # ellipse coordinates
+    x, y = ellipse(a, b, xc=xc, yc=yc, rot=rot)
     
     return x, y
