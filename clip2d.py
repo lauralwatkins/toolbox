@@ -4,6 +4,7 @@
 # Laura L Watkins [lauralwatkins@gmail.com]
 # -----------------------------------------------------------------------------
 
+from __future__ import division, print_function
 import numpy as np
 import matplotlib.pyplot as plt
 import toolbox
@@ -32,7 +33,7 @@ def clip2d(xx, yy, sigma, nmax=10, verbose=False, graph=False,
     """
     
     
-    if verbose: print "\nsigma clip at {:} sigma".format(sigma)
+    if verbose: print("\nsigma clip at {:} sigma".format(sigma))
     
     keep = np.array([ int(n) for n in np.linspace(0,len(xx)-1,len(xx)) ])
     fail = np.array([], dtype="int")
@@ -62,16 +63,16 @@ def clip2d(xx, yy, sigma, nmax=10, verbose=False, graph=False,
         keep = keep[r<rell]
         
         nremoved = len(x)-np.size(keep)
-        if verbose: print "  {:} ... removed {:}".format(count, nremoved)
+        if verbose: print("  {:} ... removed {:}".format(count, nremoved))
         count += 1
     
     
     if verbose:
-        print "  dispersions: {:}|{:} mas/yr".format(px[1],py[1])
-        print "  clip values: {:}|{:} mas/yr".format(a,b)
-        print "  points removed: {:}".format(len(xx)-keep.size)
-        print "  points remaining: {:}".format(keep.size)
-        print ""
+        print("  dispersions: {:}|{:} mas/yr".format(px[1],py[1]))
+        print("  clip values: {:}|{:} mas/yr".format(a,b))
+        print("  points removed: {:}".format(len(xx)-keep.size))
+        print("  points remaining: {:}".format(keep.size))
+        print("")
     
     # check if test data would pass of fail the clipping
     if np.any(xtest) and np.any(ytest):

@@ -4,6 +4,7 @@
 # Laura L Watkins [lauralwatkins@gmail.com]
 # --------------------------------------------------------------------------- #
 
+from __future__ import division, print_function
 import numpy as np
 from scipy.integrate import quad
 from scipy.interpolate import interp1d

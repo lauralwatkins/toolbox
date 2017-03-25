@@ -4,6 +4,7 @@
 # Laura L Watkins [lauralwatkins@gmail.com]
 # -----------------------------------------------------------------------------
 
+from __future__ import division, print_function
 import numpy as np
 from ellipse import ellipse
 from covar import covar

@@ -4,6 +4,7 @@
 # Laura L Watkins [lauralwatkins@gmail.com]
 # -----------------------------------------------------------------------------
 
+from __future__ import division, print_function
 import numpy as np
 from astropy import table
 
@@ -61,24 +62,24 @@ def into_pixels(xdata, ydata, nx=None, ny=None, xscale=None, yscale=None,
     
     # throw an error if no settings are given for the x pixels
     if not xlim and not xscale and not nx:
-        print "ERROR: Please provide pixel settings for the x-coordinate."
+        print("ERROR: Please provide pixel settings for the x-coordinate.")
         return
     
     # throw an error if no settings are given for the y pixels
     if not ylim and not yscale and not ny:
-        print "ERROR: Please provide pixel settings for the y-coordinate."
+        print("ERROR: Please provide pixel settings for the y-coordinate.")
         return
     
     # do no proceed if only limits are given for x-coordinate
     if xlim and not xscale and not nx:
-        print "ERROR: Please provide required number of pixels or pixel "\
-            +"scale for x-coordinate as well as limits of pixelised region."
+        print("ERROR: Please provide required number of pixels or pixel "\
+            +"scale for x-coordinate as well as limits of pixelised region.")
         return
     
     # do no proceed if only limits are given for y-coordinate
     if ylim and not yscale and not ny:
-        print "ERROR: Please provide required number of pixels or pixel "\
-            +"scale for y-coordinate as well as limits of pixelised region."
+        print("ERROR: Please provide required number of pixels or pixel "\
+            +"scale for y-coordinate as well as limits of pixelised region.")
         return
     
     # calculate limits, if needed
@@ -107,10 +108,10 @@ def into_pixels(xdata, ydata, nx=None, ny=None, xscale=None, yscale=None,
     
     # make sure pixel numbers are integers
     if nx!=int(nx):
-        print "You have a non-integer number of x pixels."
+        print("You have a non-integer number of x pixels.")
         return
     if ny!=int(ny):
-        print "You have a non-integer number of y pixels."
+        print("You have a non-integer number of y pixels.")
         return
     
     # total number of pixels
@@ -120,29 +121,29 @@ def into_pixels(xdata, ydata, nx=None, ny=None, xscale=None, yscale=None,
     dx = 1-(xlim[1]-xlim[0])/nx/xscale
     dy = 1-(ylim[1]-ylim[0])/ny/yscale
     if np.abs(dx)>1e-3 or np.abs(dy)>1e-3:
-        if np.abs(dx)>1e-3: print "ERROR: Your x-coordinate scales, limits, "\
-            +"and pixel numbers are inconsistent."
-        if np.abs(dy)>1e-3: print "ERROR: Your y-coordinate scales, limits, "\
-            +"and pixel numbers are inconsistent."
+        if np.abs(dx)>1e-3: print("ERROR: Your x-coordinate scales, limits, "\
+            +"and pixel numbers are inconsistent.")
+        if np.abs(dy)>1e-3: print("ERROR: Your y-coordinate scales, limits, "\
+            +"and pixel numbers are inconsistent.")
         return
     
     
     
     if not quiet:
-        print "\nbin 2D data into pixels"
-        print ""
-        print "  x coordinate: {:}".format(x)
-        print "  y coordinate: {:}".format(y)
-        print ""
-        print "  x scale: {:} /pixel".format(xscale)
-        print "  y scale: {:} /pixel".format(yscale)
-        print ""
-        print "  x limits: {:} to {:}".format(*xlim)
-        print "  y limits: {:} to {:}".format(*ylim)
-        print ""
-        print "  x pixels: {:}".format(nx)
-        print "  y pixels: {:}".format(ny)
-        print "  total pixels: {:}".format(npix)
+        print("\nbin 2D data into pixels")
+        print("")
+        print("  x coordinate: {:}".format(x))
+        print("  y coordinate: {:}".format(y))
+        print("")
+        print("  x scale: {:} /pixel".format(xscale))
+        print("  y scale: {:} /pixel".format(yscale))
+        print("")
+        print("  x limits: {:} to {:}".format(*xlim))
+        print("  y limits: {:} to {:}".format(*ylim))
+        print("")
+        print("  x pixels: {:}".format(nx))
+        print("  y pixels: {:}".format(ny))
+        print("  total pixels: {:}".format(npix))
     
     # make QTable for pixels
     pix = table.QTable()

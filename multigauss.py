@@ -4,7 +4,9 @@
 # Laura L Watkins [lauralwatkins@gmail.com]
 # -----------------------------------------------------------------------------
 
+from __future__ import division, print_function
 import numpy as np
+
 
 def multigauss(x, mu, cov, norm=True):
     

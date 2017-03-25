@@ -4,6 +4,7 @@
 # Laura L Watkins [lauralwatkins@gmail.com]
 # -----------------------------------------------------------------------------
 
+from __future__ import division, print_function
 import numpy as np
 from astropy import table, units as u
 import voronoi
@@ -52,8 +53,8 @@ def into_vorbins(data_pix, pix, targetSN, x="x", y="y", id="id", n="N",
     # fail if there are no columns called n, x or y
     for key in (n, x, y):
         if key not in pix.colnames:
-            print "ERROR: Could not find column '{:}' in pixel table."\
-                .format(key)
+            print("ERROR: Could not find column '{:}' in pixel table."\
+                .format(key))
             return
     
     # settings for Voronoi binning
@@ -110,10 +111,10 @@ def into_vorbins(data_pix, pix, targetSN, x="x", y="y", id="id", n="N",
     pix[noise+"_bin"][good] = bin[pix[good]["bin"]][noise]
     
     if not quiet:
-        print "\nVoronoi binning of pixels\n"
-        print "  bins: {:}".format(len(bin))
-        print "  min S/N per bin: {:}".format(bin[sn].min())
-        print "  max S/N per bin: {:}".format(bin[sn].max())
-        print "  avg S/N per bin: {:}".format(bin[sn].mean())
+        print("\nVoronoi binning of pixels\n")
+        print("  bins: {:}".format(len(bin)))
+        print("  min S/N per bin: {:}".format(bin[sn].min()))
+        print("  max S/N per bin: {:}".format(bin[sn].max()))
+        print("  avg S/N per bin: {:}".format(bin[sn].mean()))
     
     return bin, data_bin
