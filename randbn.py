@@ -6,11 +6,10 @@
 
 from __future__ import division, print_function
 import numpy as np
-from scipy.integrate import quad
-from scipy.interpolate import interp1d
+from scipy import integrate, interpolate
 
 
-def randbn(fn_name, params=None, num=1, min=0., max=1.):
+def randbn(fn_name, params=None, num=1, vmin=0., vmax=1., ncdf=20):
     
     """
     Draws numbers randomly from an input distribution in a given range.
@@ -20,33 +19,30 @@ def randbn(fn_name, params=None, num=1, min=0., max=1.):
     
     OPTIONS
       params  : parameters of the distribution [*][default None]
-      n       : number of random numbers to generate [default 1]
-      min     : lower limit of number range [default 0]
-      max     : upper limit of number range [default 1]
+      num     : number of random numbers to generate [default 1]
+      vmin    : lower limit of number range [default 0]
+      vmax    : upper limit of number range [default 1]
+      ncdf    : number of points at which to sample the CDF [**][default 20]
     
     NOTES
       [*] The function 'fn_name' should calculate the values x of the required
       function for a given parameter set p, that is fn_name(x,p).
+      [**] Sampling the CDF at more points will increase the computation time
+      as each point requires an integral, but it may be necessary for complex
+      functions.
     """
     
     
-    xx = np.linspace(min, max, 100)
+    values = np.linspace(vmin, vmax, ncdf)
     
-    # normalisation constant and cumulative distribution function
+    # normalised cumulative distribution function
     if not params: f = lambda x: fn_name(x)
     else: f = lambda x: fn_name(x, params)
-    cst, err = quad(f, min, max)
-    dx = np.array([quad(f, min, x) for x in xx]).T[0]/cst
+    cdf = np.cumsum([integrate.quad(f, values[max(0,i-1)], values[i])[0] \
+        for i in range(ncdf)])
+    cdf /= cdf[-1]
     
-    # generate random CDF values and sort for spline fitting
-    cdf = np.random.rand(num)
-    cdf.sort()
+    # sample is drawn by calculating the value for randomly-generated CDFs
+    sample = interpolate.interp1d(cdf, values)(np.random.rand(num))
     
-    # calculate corresponding x values
-    f = interp1d(dx, xx)
-    rx = f(cdf)
-    
-    # re-randomise (ie undo sorting)
-    rx = rx[np.argsort(np.random.rand(num))]
-    
-    return rx
+    return sample
