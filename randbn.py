@@ -36,7 +36,7 @@ def randbn(fn_name, params=None, num=1, vmin=0., vmax=1., ncdf=20):
     values = np.linspace(vmin, vmax, ncdf)
     
     # normalised cumulative distribution function
-    if not params: f = lambda x: fn_name(x)
+    if params is None: f = lambda x: fn_name(x)
     else: f = lambda x: fn_name(x, params)
     cdf = np.cumsum([integrate.quad(f, values[max(0,i-1)], values[i])[0] \
         for i in range(ncdf)])
