@@ -7,8 +7,6 @@
 from __future__ import division, print_function
 import numpy as np
 from astropy import table, units as u
-import voronoi
-
 
 def into_vorbins(data_pix, pix, targetSN, x="x", y="y", id="id", n="N",
     npix="Npix", sn="SN", signal=None, noise=None, quiet=False, vquiet=True):
@@ -49,6 +47,8 @@ def into_vorbins(data_pix, pix, targetSN, x="x", y="y", id="id", n="N",
     of the signal in the pixel (useful if the signal is the number of objects
     in the pixel), unless a column name is passed for the noise data.
     """
+    
+    import voronoi
     
     # fail if there are no columns called n, x or y
     for key in (n, x, y):
