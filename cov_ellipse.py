@@ -6,8 +6,8 @@
 
 from __future__ import division, print_function
 import numpy as np
-from ellipse import ellipse
-from covar import covar
+from .ellipse import ellipse
+from .covar import covar
 
 
 def cov_ellipse(x, sigma=1., w=None):

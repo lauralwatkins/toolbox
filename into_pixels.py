@@ -103,8 +103,8 @@ def into_pixels(xdata, ydata, nx=None, ny=None, xscale=None, yscale=None,
     if not yscale: yscale = (ylim[1]-ylim[0])/ny
     
     # calculate number of pixels, if needed
-    if not nx: nx = int(round((xlim[1]-xlim[0])/xscale))
-    if not ny: ny = int(round((ylim[1]-ylim[0])/yscale))
+    if not nx: nx = int(np.round((xlim[1]-xlim[0])/xscale))
+    if not ny: ny = int(np.round((ylim[1]-ylim[0])/yscale))
     
     # make sure pixel numbers are integers
     if nx!=int(nx):
