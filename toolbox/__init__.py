@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from .asymgauss import asymgauss
 from .clip2d import clip2d
 from .cov_ellipse import cov_ellipse
 from .covar import covar
