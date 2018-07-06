@@ -5,6 +5,7 @@
 # -----------------------------------------------------------------------------
 
 from __future__ import division, print_function
+import numpy as np
 
 
 def nearest(x, base=1.):
@@ -20,4 +21,4 @@ def nearest(x, base=1.):
       base : number to which x should be rounded
     """
     
-    return round(x/base)*base
+    return np.round(x/base)*base
