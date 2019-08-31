@@ -14,4 +14,5 @@ from .minmax import minmax
 from .multigauss import multigauss
 from .nearest import nearest
 from .randbn import randbn
+from .Rotate3d import Rotate3d
 from .whsf import whsf
