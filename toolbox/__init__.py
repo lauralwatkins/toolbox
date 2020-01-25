@@ -16,5 +16,6 @@ from .multigauss import multigauss
 from .nearest import nearest
 from .PositionAngleRotation import PositionAngleRotation
 from .randbn import randbn
+from .Rotate2d import Rotate2d
 from .Rotate3d import Rotate3d
 from .whsf import whsf
