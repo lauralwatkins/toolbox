@@ -10,6 +10,7 @@ from .fmttime import fmttime
 from .into_pixels import into_pixels
 from .into_vorbins import into_vorbins
 from .lims import lims
+from .LinearTransformation import LinearTransformation
 from .minmax import minmax
 from .multigauss import multigauss
 from .nearest import nearest
