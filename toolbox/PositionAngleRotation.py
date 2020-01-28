@@ -29,10 +29,14 @@ def PositionAngleRotation(pa, x, y, dx=None, dy=None):
     cospa = np.cos(pa)
     rotation = np.array([[-sinpa, cospa], [-cospa, -sinpa]])
     
-    x, y = rotation.dot([x, y])
+    try: unit, x, y = x.unit, x.value, y.value
+    except: unit = 1
+    x, y = rotation.dot([x, y])*unit
     
     if dx is not None and dy is not None:
-        dx, dy = np.sqrt((rotation**2).dot([dx**2, dy**2]))
+        try: unit, dx, dy = dx.unit, dx.value, dy.value
+        except: unit = 1
+        dx, dy = np.sqrt((rotation**2).dot([dx**2, dy**2]))*unit
         return x, y, dx, dy
     
     return x, y
