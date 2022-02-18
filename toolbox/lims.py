@@ -29,7 +29,8 @@ def lims(x, f=0., log=False, err=0, pivot=None):
     """
     
     try: unit, x = x.unit, x.value
-    except: unit = 1.
+    except: unit = 1
+    if unit is None: unit = 1
     
     # check if plus/minus errors are different
     if np.shape(err) == (2,) + np.shape(x):
