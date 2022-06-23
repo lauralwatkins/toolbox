@@ -1,16 +1,11 @@
 #!/usr/bin/env python
 
 import numpy as np
-from units as u
+from astropy import units as u
 
 def PercentileErrors(values):
     
-    try:
-        unit = values.unit
-    except:
-        unit = 1
-    
-    v_m1, v, v_p1 = np.percentile(values, (15.9, 50, 84.1))*unit
+    v_m1, v, v_p1 = np.percentile(values, (15.9, 50, 84.1))
     ep_v = v_p1 - v
     em_v = v - v_m1
     
