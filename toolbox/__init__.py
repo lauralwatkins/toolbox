@@ -14,6 +14,7 @@ from .LinearTransformation import LinearTransformation
 from .minmax import minmax
 from .multigauss import multigauss
 from .nearest import nearest
+from .PercentileErrors import PercentileErrors
 from .PositionAngleRotation import PositionAngleRotation
 from .randbn import randbn
 from .Rotate2d import Rotate2d
