@@ -6,7 +6,11 @@ from .cov_ellipse import cov_ellipse
 from .covar import covar
 from .ellipse import ellipse
 from .FitGaussian import FitGaussian
+from .Fit2Gaussians import Fit2Gaussians
+from .Fit3Gaussians import Fit3Gaussians
 from .fmttime import fmttime
+from .GaussGauss import GaussGauss
+from .GaussGaussGauss import GaussGaussGauss
 from .into_pixels import into_pixels
 from .into_vorbins import into_vorbins
 from .lims import lims
