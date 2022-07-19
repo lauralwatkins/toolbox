@@ -1,10 +1,5 @@
 #!/usr/bin/env python
-# -----------------------------------------------------------------------------
-# TOOLBOX.FIT_GAUSS
-# Laura L Watkins [lauralwatkins@gmail.com]
-# -----------------------------------------------------------------------------
 
-from __future__ import division, print_function
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import optimize, stats
@@ -26,7 +21,7 @@ def FitGaussian(data, bins=100, showplot=False, label=None, weights=None):
     """
     
     # normalised histogram of data
-    yh, lims = np.histogram(data, bins=bins, normed=True, weights=weights)
+    yh, lims = np.histogram(data, bins=bins, density=True, weights=weights)
     xh = (lims[1:] + lims[:-1])/2.
     
     # fit gaussian to distribution
