@@ -5,7 +5,7 @@ from .clip2d import clip2d
 from .cov_ellipse import cov_ellipse
 from .covar import covar
 from .ellipse import ellipse
-from .fit_gauss import fit_gauss
+from .FitGaussian import FitGaussian
 from .fmttime import fmttime
 from .into_pixels import into_pixels
 from .into_vorbins import into_vorbins

@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from scipy import optimize, stats
 
 
-def fit_gauss(data, bins=100, showplot=False, label=None, weights=None):
+def FitGaussian(data, bins=100, showplot=False, label=None, weights=None):
     
     """
     Fit a gaussian profile to a given distribution.

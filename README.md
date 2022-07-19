@@ -39,7 +39,7 @@ This is a random collection of useful python functions. I primarily wrote them f
 * **cov_ellipse**: Calculates the x and y coordinates of an ellipse with parameters specified by a 2d covariance matrix.
 * **covar**: Calculates the covariance matrix for a given parameter set.
 * **ellipse**: Calculates x and y coordinates of an ellipse.
-* **fit_gauss**: Fit a gaussian profile to a given distribution.
+* **FitGaussian**: Fit a gaussian profile to a given distribution.
 * **fmttime**: Output time elapsed in seconds into a sensible format.
 * **into_pixels**: Bin a 2D dataset into pixels. This returns both the pixels and the pixel IDs of each datapoint.
 * **into_vorbins**: Bin pixels into Voronoi bins (basically this is a wrapper for [voronoi.bin2d](https://github.com/lauralwatkins/voronoi) that takes care of tedious housekeeping). This returns both the bins and the bin IDs of each datapoint.
